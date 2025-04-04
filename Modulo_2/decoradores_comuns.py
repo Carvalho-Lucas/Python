@@ -1,0 +1,52 @@
+# Decoradores comuns classmethod e staticmethod
+
+class MinhaClasse:
+    valor = 10 #atributo da classe - parâmetro estático 
+
+    def __init__(self, nome):
+        self.nome = nome #Atributo da instância
+
+    #requer uma instância para ser chamado
+    def metodo_instancia(self):
+        return f"Método de instância chamada para {self.nome}"
+    
+    @classmethod
+    def metodo_classe(cls):
+        return f"Método de classe chamado para valor = {cls.valor}"
+    
+    @staticmethod #não recebe argumento, não possui acesso aos atribuitos da instância e nem da classe
+    def metodo_estatico():
+        return "Método estático chamado"
+    
+    
+obj = MinhaClasse(nome="Classe Exemplo")
+obj.nome
+print(obj.metodo_instancia())
+print(MinhaClasse.valor)
+print(MinhaClasse.metodo_classe())
+print(MinhaClasse.metodo_estatico())
+
+
+class Carro:
+
+    def __init__(self, marca, modelo, ano):
+        self.marca = marca
+        self.modelo = modelo
+        self.ano = ano
+        
+    @classmethod
+    def criar_carro(cls, configuracao):
+        marca, modelo, ano = configuracao.split(",")
+        return cls(marca, modelo, int(ano))
+    
+configuracao1 = "Toyota,Corolla, 2022"
+carro1 = Carro.criar_carro(configuracao1)
+print(f"Utilização de classmethod -> Marca: {carro1.marca} , Modelo: {carro1.modelo} , Ano: {carro1.ano}")
+
+
+class Matematica:
+
+    @staticmethod
+    def somar(a, b):
+        return a + b
+print(f"Soma de 2 numeros usando staticmethod: {Matematica.somar(a=10, b=2)}")
